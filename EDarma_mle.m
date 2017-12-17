@@ -31,7 +31,8 @@ function results = EDarma_mle( y, p, q, info )
 %       Time Series With Missing Observations" Technometrics, Vol 22, No3, 
 %       August 1980.
 % 
-% Written by Constantino Hevia. August 2008
+% Written by Constantino Hevia. August 2008 
+% Modified by Dany Yatim, 2017
 
 if nargin<4; info = 0; end
 
