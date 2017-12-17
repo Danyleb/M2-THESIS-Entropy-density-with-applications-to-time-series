@@ -1,0 +1,44 @@
+%u s a ge f o r s = −0.28 and k = 4. 6 8
+>>x = [ −5 : 0 . 1 : 5 ]
+>> y = EDproba2 ( x , −0. 2 8 , 4. 6 8 )
+f u n c ti o n p = EDproba2 ( v , s , k )
+forma t shortG ;
+Xi ni t = z e r o s ( 4 , 1 ) ; %i n i t i a l p oi n t s f o r the fmincon f u n c ti o n
+o p ti o n s = o p tim o p ti o n s ( ’ fmincon ’ , . . .
+’ Algorithm ’ , ’ sqp−l e g a c y ’ , ’ Di spl ay ’ , ’ i t e r ’ , ’ C o n s t r ai n tT ol e r a n c e ’ , 1 e −30);
+
+%the mi nimi z a ti o n f u n c ti o n
+[ xopt , f v al , e x i t f l a g , output , lambda , grad , h e s si a n ] = . . .
+fmincon ( @ fct , Xini t , [ ] , [ ] , [ ] , [ ] , [ ] , [ ] , [ ] , o p ti o n s ) ;
+f u n c ti o n [ f ] = f c t ( Xi ni t )
+N = 4 ; % s e l e c t number o f v a r i a b l e s
+n=40; %o r d e r o f Gauss−Legendre qu ad r a tu re
+[ z ,w]= l e g z o ( n , −6 ,6 ); %f u n c ti o n t h a t r e t u r n s
+%w ei g h t s and p oi n t s o f G−L qu ad r a tu re
+Mean = 0 ;
+V a ri ance = 1 ;
+Skewness= s ;
+K u r t o si s= k ;
+A = z ;
+B= z e r o s ( n , 4 ) ;
+B(: , 1 )= A’ ;
+B(: , 2 )= A’ . ˆ 2 ;
+B(: , 3 )= A’ . ˆ 3 ;
+B(: , 4 )= A’ . ˆ 4 ;
+f o r i = 1 : n
+C( i ,1)= Mean ;
+C( i ,2)= V a ri ance ;
+C( i ,3)= Skewness ;
+C( i ,4)= K u r t o si s ;
+end
+
+D = B − C;
+u = (D∗ Xi ni t ) ;
+f = sum ( (w)∗ exp ( u ) ) ; %the f u n c ti o n t o minimize
+end
+%Compute the p r o b a b i l i t y o f v
+p = exp ( ( xopt ( 1 ) ∗ ( v−Mean ) + xopt ( 2 ) ∗ ( ( v . ˆ 2 ) − V a ri ance ) . . .
++ xopt ( 3 ) ∗ ( ( v . ˆ 3 ) − Skewness ) . . .
++xopt ( 4 ) ∗ ( ( v . ˆ 4 ) − K u r t o si s ) ) ) . . .
+/ f v a l ;
+end
