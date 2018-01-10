@@ -160,9 +160,9 @@ disp(tstudent);
             Sigma_t1t = A*Sigma_tt*A' + Q; % covar(xhat_t1t|txha_tt)
             yhat_t1t  = Z'*xhat_t1t;
             omega     = Z'*Sigma_t1t*Z; %var(y)
-            delta_t1  = Sigma_t1t*Z/omega; %var(xhat_t1t)*Z/%var(y) = Kalman filter
+            delta_t1  = Sigma_t1t*Z/omega; %var(xhat_t1t)*Z/%var(y) = Kalman gain
             x     = y(i+1) - yhat_t1t; %error term
-            xhat_t1t1 = xhat_t1t + delta_t1*x; %update with Kalman filter
+            xhat_t1t1 = xhat_t1t + delta_t1*x; %update with Kalman gain
             Sigma_t1t1= Sigma_t1t - delta_t1*Z'*Sigma_t1t;
             
             % Add likelihood terms:
